@@ -8,6 +8,11 @@ class Ball(Turtle):
         self.color("white")
         self.shape("circle")
         self.penup()
+        self.x_move = 1
+        self.y_move = 1
+        self.goto(0, -100)
+
+    def reset(self):
         self.goto(0, -100)
         self.x_move = 1
         self.y_move = 1

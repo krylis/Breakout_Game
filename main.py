@@ -31,17 +31,22 @@ screen.listen()
 screen.onkeypress(paddle.go_right, "Right")
 screen.onkeypress(paddle.go_left, "Left")
 
+game_speed = 0.005
+
 game_is_on = True
 while game_is_on:
     screen.update()
-    time.sleep(0.01)
+    time.sleep(game_speed)
     ball.move()
+
     # detect ball collision with side-wall and change ball's direction of movement
     if ball.xcor() >= 380 or ball.xcor() <= -390:
         ball.side_bounce()
+
     # detect collision with ceiling and change direction
     if ball.ycor() >= 290:
         ball.bounce()
+
     # detect collision with paddle and change ball's direction depending on what part of paddle ball collides with
     if ball.distance(paddle) <= 100 and ball.ycor() <= - 245:
         ball.bounce()
@@ -49,6 +54,12 @@ while game_is_on:
             ball.bounce_left()
         else:
             ball.bounce_right()
+
+    # detect when paddle misses and reset ball
+    if ball.ycor() <= -290:
+        ball.reset()
+        game_speed = 0.005
+
     # detect collision with brick and change direction depending on what part of the brick the ball hit and delete brick
     for brick in bricks:
         if ball.distance(brick) <= 50 and (ball.ycor() <= brick.ycor() + 3 or ball.ycor() >= brick.ycor() - 3):
@@ -58,5 +69,7 @@ while game_is_on:
             else:
                 ball.bounce_right()
             brick.reset()
+            bricks.remove(brick)
+            game_speed /= 2
 
 screen.exitonclick()

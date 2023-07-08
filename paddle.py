@@ -12,7 +12,7 @@ class Paddle(Turtle):
         self.goto(0, -260)
 
     def go_right(self):
-        self.goto(self.xcor() + 20, self.ycor())
+        self.goto(self.xcor() + 30, self.ycor())
 
     def go_left(self):
-        self.goto(self.xcor() - 20, self.ycor())
+        self.goto(self.xcor() - 30, self.ycor())
